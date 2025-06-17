@@ -1,0 +1,164 @@
+Here’s a sequenced DevOps learning roadmap, structured by priority and complexity, assuming you're aiming for a mid-senior level DevOps role.
+✅ PHASE 1: Foundation Expansion (Immediate Next Steps)
+
+These are critical topics that build on your current strengths.
+
+    Version Control (Git Advanced)
+
+        Git internals (rebase, cherry-pick, hooks)
+
+        Git branching strategies (GitFlow, trunk-based)
+
+    CI/CD Fundamentals
+
+        Understand CI/CD principles
+
+        Learn tools like Jenkins, GitHub Actions, GitLab CI, or CircleCI
+
+        Pipelines: build, test, deploy stages
+
+        Artifacts, caching, rollback mechanisms
+
+    Intermediate AWS Services
+
+        IAM (roles, policies, STS)
+
+        EC2, S3, RDS
+
+        VPC, Security Groups, NACLs
+
+        CloudWatch & CloudTrail
+
+        Auto Scaling, Load Balancers
+
+    Infrastructure as Code (IaC)
+
+        Learn Terraform deeply (preferred in the industry)
+
+        Basics of CloudFormation (optional but good to know)
+
+        State management, modules, workspaces, remote backend
+
+✅ PHASE 2: Containers & Orchestration
+
+This is the core of modern DevOps work. Must-have knowledge for 5+ year roles.
+
+    Docker
+
+        Writing and optimizing Dockerfiles
+
+        Volumes, networking, multi-stage builds
+
+        Docker Compose
+
+    Kubernetes (K8s)
+
+        Architecture: pods, deployments, services, config maps, secrets
+
+        Helm (templating and chart management)
+
+        Minikube, kubeadm, or EKS (AWS managed K8s)
+
+        Monitoring, logging inside K8s clusters
+
+        Ingress controllers (Nginx, Traefik)
+
+        RBAC, namespaces, resource limits
+
+✅ PHASE 3: Monitoring, Observability & Logging
+
+    Monitoring & Alerting
+
+        Prometheus + Grafana
+
+        CloudWatch metrics and alarms
+
+        Datadog / New Relic (optional)
+
+    Logging
+
+        ELK Stack (Elasticsearch, Logstash, Kibana)
+
+        Fluentd / Fluent Bit
+
+        Structured logging practices
+
+        Log aggregation in cloud (CloudWatch Logs, S3 retention)
+
+✅ PHASE 4: Advanced Topics & Tooling
+
+    Advanced CI/CD
+
+        Canary deployments
+
+        Blue/green deployment
+
+        Feature toggles
+
+        Secrets management in pipelines (Vault, AWS Secrets Manager)
+
+    Security (DevSecOps)
+
+        AWS security best practices
+
+        Image scanning (Trivy, Aqua)
+
+        IAM least privilege enforcement
+
+        Network segmentation
+
+        Secrets management
+
+    SRE & Reliability
+
+        SLAs, SLOs, SLIs
+
+        Incident management and postmortems
+
+        Chaos engineering basics
+
+✅ PHASE 5: Soft Skills & System Design
+
+    System Design for DevOps
+
+        Design a scalable, highly available web app infra on AWS
+
+        CI/CD pipeline design
+
+        Disaster recovery & backup strategies
+
+        Caching (Redis, CDN like CloudFront)
+
+    Collaboration Tools & Documentation
+
+        JIRA, Confluence
+
+        Writing runbooks
+
+        Clear logging, tagging practices
+
+✅ Optional (Depending on Role)
+
+    Serverless & Event-driven Architectures
+
+        AWS Lambda, API Gateway
+
+        SQS, SNS, EventBridge
+
+    Python or Go for Automation
+
+        Python scripting for AWS automation
+
+        Boto3 or AWS SDKs
+
+📚 Bonus: Projects to Build for Practice
+
+    CI/CD pipeline deploying to EC2 and S3 (Jenkins/GitHub Actions)
+
+    Kubernetes cluster with monitored microservices
+
+    Terraform project with complete AWS infra (VPC, EC2, RDS, ALB)
+
+    ELK Stack setup with logs from Docker containers
+
+    Helm chart for a sample app with Ingress and Secrets
