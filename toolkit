@@ -1,0 +1,269 @@
+The DevOps Toolkit is designed to be the definitive resource for diagnosing and resolving issues across the entire DevOps stack. This repository provides structured, practical guidance for engineers working with modern infrastructure and applications.
+Why This Toolkit Exists
+
+As systems grow more complex and distributed, troubleshooting becomes increasingly challenging. This toolkit aims to:
+
+    ✅ Provide structured approaches to solving common (and uncommon) problems
+    ✅ Document real-world solutions tested in production environments
+    ✅ Share institutional knowledge that typically takes years to accumulate
+    ✅ Reduce mean time to resolution (MTTR) for critical incidents
+    ✅ Offer copy-paste commands for immediate use
+
+Who It's For
+
+    DevOps Engineers - Infrastructure and deployment pipeline management
+    Site Reliability Engineers (SREs) - Production system maintenance
+    Platform Engineers - Internal developer platform building
+    System Administrators - Linux environment management
+    Cloud Engineers - Multi-cloud provider expertise
+    Backend Developers - Application debugging in complex environments
+
+🚀 Quick Start
+Emergency Commands
+
+# System Health Check
+top -p $(pgrep -d',' -f your_app)
+free -h && df -h
+netstat -tulpn | grep LISTEN
+
+# Container Quick Debug
+docker ps --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}"
+docker logs --tail 100 -f container_name
+
+# Kubernetes Emergency
+kubectl get pods --all-namespaces | grep -v Running
+kubectl top nodes && kubectl top pods
+
+Installation
+
+# Clone the repository
+git clone https://github.com/Osomudeya/DevOps-Troubleshooting-Toolkit.git
+cd DevOps-Troubleshooting-Toolkit
+
+# Make scripts executable
+chmod +x scripts/*.sh
+
+# Optional: Add to PATH for global access
+echo 'export PATH=$PATH:'$(pwd)'/scripts' >> ~/.bashrc
+source ~/.bashrc
+
+🛠️ Platform Guides
+Linux Systems
+Component 	Quick Access 	Description
+Linux Commands 	linux/linux-commands.md 	Essential system diagnostics and troubleshooting
+Container Platforms
+Platform 	Quick Access 	Key Features
+Docker 	containers/docker-troubleshooting.md 	Container lifecycle, networking, volumes
+Kubernetes
+Component 	Quick Access 	Coverage
+Kubernetes 	kubernetes/kubernetes-troubleshooting.md 	Cluster management, workloads, networking
+Cloud Providers
+Provider 	Quick Access 	Specializations
+AWS 	cloud/aws-troubleshooting.md 	EKS, Lambda, RDS, VPC troubleshooting
+GCP 	cloud/gcp-troubleshooting.md 	GKE, Cloud Functions, networking
+Azure 	cloud/azure-troubleshooting.md 	AKS, App Services, resource groups
+Multi-Cloud 	cloud/multi-cloud-strategies.md 	Cross-platform strategies
+Databases
+Database 	Quick Access 	Focus Areas
+Database Troubleshooting 	databases/database-troubleshooting.md 	Connection, performance, backup issues
+Observability
+Tool 	Quick Access 	Coverage
+Prometheus & Grafana 	observability/prometheus-and-grafana.md 	Monitoring, alerting, dashboards
+🔥 Common Issues
+🚨 Critical System Issues
+High Load Average
+
+# Quick diagnosis
+uptime && cat /proc/loadavg
+ps aux --sort=-%cpu | head -10
+iostat -x 1 5
+
+# Deep dive
+sar -u 1 10  # CPU utilization
+sar -d 1 10  # Disk activity
+
+👉 Detailed Guide: linux/linux-commands.md
+Out of Memory (OOM)
+
+# Check OOM killer logs
+dmesg | grep -i "killed process"
+journalctl -u your-service | grep -i oom
+
+# Memory analysis
+free -h && cat /proc/meminfo
+ps aux --sort=-%mem | head -10
+
+👉 Detailed Guide: linux/linux-commands.md
+Disk Space Full
+
+# Find large files and directories
+df -h
+du -sh /* 2>/dev/null | sort -hr | head -10
+find / -type f -size +1G 2>/dev/null
+
+# Log rotation check
+journalctl --disk-usage
+
+👉 Detailed Guide: linux/linux-commands.md
+🐳 Container Issues
+Container Won't Start
+
+# Debug container startup
+docker logs container_name
+docker inspect container_name
+docker run --rm -it image_name /bin/sh
+
+# Resource constraints
+docker stats container_name
+
+👉 Detailed Guide: containers/docker-troubleshooting.md
+Container Networking
+
+# Network debugging
+docker network ls
+docker inspect network_name
+docker exec container_name netstat -tulpn
+
+👉 Detailed Guide: containers/docker-troubleshooting.md
+☸️ Kubernetes Issues
+Pods Stuck in Pending
+
+# Check pod status
+kubectl describe pod pod_name
+kubectl get events --sort-by=.metadata.creationTimestamp
+
+# Resource availability
+kubectl top nodes
+kubectl describe nodes
+
+👉 Detailed Guide: kubernetes/kubernetes-troubleshooting.md
+Service Not Accessible
+
+# Service debugging
+kubectl get svc,ep service_name
+kubectl describe svc service_name
+kubectl get pods -l app=your_app -o wide
+
+👉 Detailed Guide: kubernetes/kubernetes-troubleshooting.md
+🌐 Network Issues
+DNS Resolution Failures
+
+# DNS troubleshooting
+nslookup domain.com
+dig domain.com
+systemd-resolve --status
+
+Connection Timeouts
+
+# Network connectivity
+telnet host port
+nc -zv host port
+traceroute host
+
+💾 Database Issues
+Connection Problems
+
+# Database connection check
+mysql -h hostname -u username -p -e "SELECT 1"
+psql -h hostname -U username -c "SELECT 1"
+mongo --host hostname --eval "db.stats()"
+
+👉 Detailed Guide: databases/database-troubleshooting.md
+📊 Troubleshooting Scenarios
+Real-World Examples
+Scenario 	Difficulty 	Description 	Guide
+Complete Troubleshooting Scenarios 	🟢-🔴 All Levels 	End-to-end troubleshooting examples 	scenarios/scenarios.md
+🛠️ Useful Scripts
+Available Scripts
+
+    scripts/auto-clone-all-repos.sh - Clone all repositories from an organization
+    scripts/auto-pull-all-repos.sh - Update all local repositories
+    scripts/k8s-tailogs.sh - Stream logs from multiple Kubernetes pods
+    scripts/kubernetes-events.sh - Monitor Kubernetes events in real-time
+    scripts/kubernetes-tools.sh - Install essential Kubernetes tools
+
+Usage Examples
+
+# Repository management
+./scripts/auto-clone-all-repos.sh    # Clone all org repositories
+./scripts/auto-pull-all-repos.sh     # Update all local repositories
+
+# Kubernetes tools
+./scripts/kubernetes-events.sh       # Monitor K8s events real-time
+./scripts/k8s-tailogs.sh            # Stream logs from multiple pods
+./scripts/kubernetes-tools.sh       # Install essential K8s tools
+
+📂 Content Organization
+
+DevOps-Troubleshooting-Toolkit/
+├── linux/                     # Linux system troubleshooting
+│   └── linux-commands.md      # Essential Linux commands
+├── containers/                 # Container platform issues
+│   └── docker-troubleshooting.md # Docker troubleshooting guide
+├── kubernetes/                 # K8s cluster and workload problems
+│   └── kubernetes-troubleshooting.md # Kubernetes troubleshooting
+├── cloud/                      # Cloud provider specific guides
+│   ├── aws-troubleshooting.md  # AWS troubleshooting
+│   ├── azure-troubleshooting.md # Azure troubleshooting
+│   ├── gcp-troubleshooting.md  # GCP troubleshooting
+│   └── multi-cloud-strategies.md # Multi-cloud strategies
+├── databases/                  # Database troubleshooting
+│   └── database-troubleshooting.md # Database issues
+├── observability/              # Monitoring, logging, and tracing
+│   └── prometheus-and-grafana.md # Prometheus & Grafana guide
+├── scenarios/                  # End-to-end troubleshooting scenarios
+│   └── scenarios.md           # Real-world scenarios
+├── scripts/                    # Automated troubleshooting scripts
+│   ├── auto-clone-all-repos.sh
+│   ├── auto-pull-all-repos.sh
+│   ├── k8s-tailogs.sh
+│   ├── kubernetes-events.sh
+│   └── kubernetes-tools.sh
+└── assets/
+    ├── images/                 # Repository images and diagrams
+    └── cheatsheets/           # Printable reference materials
+
+🧪 Quick Tests & Validation
+Database Connectivity
+
+# MySQL/MariaDB
+mysql -h hostname -u username -p -e "SELECT VERSION(), NOW();"
+
+# PostgreSQL
+psql -h hostname -U username -c "SELECT version();"
+
+# MongoDB
+mongosh --host hostname --eval "db.runCommand({ping: 1})"
+
+# Redis
+redis-cli -h hostname ping
+
+Service Health Checks
+
+# HTTP services
+curl -I http://service-endpoint/health
+wget --spider http://service-endpoint/health
+
+# TCP services
+nc -zv hostname port
+telnet hostname port
+
+Container Registry Access
+
+# Docker Hub
+docker pull hello-world
+
+# Private registry
+docker login registry.company.com
+docker pull registry.company.com/app:latest
+
+📊 Observability & Monitoring
+Prometheus & Grafana
+
+# Check Prometheus targets
+curl -s http://localhost:9090/api/v1/targets | jq .
+
+# Grafana API health
+curl -H "Authorization: Bearer $GRAFANA_TOKEN" http://localhost:3000/api/health
+
+👉 Full Guide: observability/prometheus-and-grafana.md
